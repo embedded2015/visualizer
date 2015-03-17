@@ -1,3 +1,5 @@
-*.elf *.bin *.list
+*.elf
+*.bin
+*.list
 sched.grasp
 log
