@@ -14,9 +14,10 @@ FREERTOS_SRC = $(LIB_PATH)/FreeRTOS
 FREERTOS_INC = $(FREERTOS_SRC)/include/                                       
 FREERTOS_PORT_INC = $(FREERTOS_SRC)/portable/GCC/ARM_$(ARCH)/
 
-all: main.bin
+all: out/main.bin
 
-main.bin: main.c
+out/main.bin: main.c
+	mkdir -p out
 	$(CROSS_COMPILE)gcc \
 		-Wl,-Tmain.ld -nostartfiles \
 		-I. -I$(FREERTOS_INC) -I$(FREERTOS_PORT_INC) \
@@ -26,7 +27,7 @@ main.bin: main.c
 		-fno-common -O0 \
 		-gdwarf-2 -g3 \
 		-mcpu=cortex-m3 -mthumb \
-		-o main.elf \
+		-o out/main.elf \
 		\
 		$(CMSIS_LIB)/CoreSupport/core_cm3.c \
 		$(CMSIS_PLAT_SRC)/system_stm32f10x.c \
@@ -46,16 +47,16 @@ main.bin: main.c
 		\
 		stm32_p103.c \
 		main.c
-	$(CROSS_COMPILE)objcopy -Obinary main.elf main.bin
-	$(CROSS_COMPILE)objdump -S main.elf > main.list
+	$(CROSS_COMPILE)objcopy -Obinary out/main.elf out/main.bin
+	$(CROSS_COMPILE)objdump -S out/main.elf > out/main.list
 
-qemu: main.bin $(QEMU_STM32)
+qemu: out/main.bin $(QEMU_STM32)
 	$(QEMU_STM32) -M stm32-p103 -kernel main.bin -semihosting
 
-qemuauto: main.bin gdbscript
-	bash emulate.sh main.bin
+qemuauto: out/main.bin gdbscript
+	bash emulate.sh out/main.bin
 	python log2grasp.py
 	../grasp_linux/grasp sched.grasp
 
 clean:
-	rm -f *.elf *.bin *.list log sched.grasp
+	rm -rf out log sched.grasp
