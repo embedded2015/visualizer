@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdarg.h>
 
-#define NVIC_INTERRUPTx_PRIORITY ( ( volatile unsigned char *) 0xe000e400 )
+#define NVIC_INTERRUPTx_PRIORITY ( ( volatile unsigned char *) 0xE000E400 )
 
 int logfile = 0;
 
