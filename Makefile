@@ -1,12 +1,12 @@
-CROSS_COMPILE=arm-none-eabi-
+CROSS_COMPILE = arm-none-eabi-
 QEMU_STM32 ?= ../qemu_stm32/arm-softmmu/qemu-system-arm
 
-ARCH=CM3
-VENDOR=ST
-PLAT=STM32F10x
-LIB_PATH=../freertos-basic/freertos/libraries
-CMSIS_LIB=$(LIB_PATH)/CMSIS/$(ARCH)
-STM32_LIB=$(LIB_PATH)/STM32F10x_StdPeriph_Driver
+ARCH = CM3
+VENDOR = ST
+PLAT = STM32F10x
+LIB_PATH = ../freertos-basic/freertos/libraries
+CMSIS_LIB = $(LIB_PATH)/CMSIS/$(ARCH)
+STM32_LIB = $(LIB_PATH)/STM32F10x_StdPeriph_Driver
 
 CMSIS_PLAT_SRC = $(CMSIS_LIB)/DeviceSupport/$(VENDOR)/$(PLAT)
 
@@ -16,7 +16,7 @@ FREERTOS_PORT_INC = $(FREERTOS_SRC)/portable/GCC/ARM_$(ARCH)/
 
 all: out/main.bin
 
-out/main.bin: main.c
+out/main.bin: main.c stm32_p103.c stm32_p103.h FreeRTOSConfig.h stm32f10x_conf.h
 	mkdir -p out
 	$(CROSS_COMPILE)gcc \
 		-Wl,-Tmain.ld -nostartfiles \
