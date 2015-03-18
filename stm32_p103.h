@@ -8,6 +8,7 @@ void init_led(void);
 
 /* Initialize the button (the board only has one). */
 void init_button(void);
+void enable_button_interrupts(void);
 
 /* Configures the RS232 serial port using the following settings:
  *   9600 Baud
@@ -18,9 +19,7 @@ void init_button(void);
  * case any additional configuration is needed.
  */
 void init_rs232(void);
-
 void enable_rs232_interrupts(void);
-
 void enable_rs232(void);
 
 #endif /* __STM32_P103_H */

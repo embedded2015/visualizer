@@ -1,5 +1,6 @@
 #define USE_STDPERIPH_DRIVER
 #include "stm32f10x.h"
+#include "stm32_p103.h"
 
 /* Scheduler includes. */
 #include "FreeRTOS.h"
@@ -18,8 +19,6 @@ int syscall(int number, ...) __attribute__((naked));
 int open(const char *pathname, int flags);
 int close(int fildes);
 size_t write(int fildes, const void *buf, size_t nbyte);
-
-static void setup_hardware();
 
 volatile xQueueHandle serial_str_queue = NULL;
 volatile xSemaphoreHandle serial_tx_wait_sem = NULL;
