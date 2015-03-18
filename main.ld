@@ -1,15 +1,13 @@
 ENTRY(main)
 MEMORY
 {
-  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 128K
-  RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
-
+	FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 128K
+	RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
 }
 
 SECTIONS
 {
-	.text :
-	{
+	.text : {
 		KEEP(*(.isr_vector))
  		*(.text)
  		*(.text.*)
@@ -17,11 +15,12 @@ SECTIONS
 		_sidata = .;
 	} >FLASH
 
-	/* Initialized data will initially be loaded in FLASH at the end of the .text section. */
-    .data : AT (_sidata) 
-    {
+	/* Initialized data will initially be loaded in FLASH at the end
+	 * of the .text section.
+	 */
+	.data : AT (_sidata) {
 		_sdata = .;
-		*(.data)		/* Initialized data */
+		*(.data)	/* Initialized data */
 		_edata = .;
 	} >RAM
 
@@ -32,4 +31,4 @@ SECTIONS
 	} >RAM
     
     _estack = ORIGIN(RAM) + LENGTH(RAM);
- }  
+}  
