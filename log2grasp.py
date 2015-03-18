@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Copyright (C) 2013 National Cheng Kung University, Taiwan
+# All rights reserved.
+
 # Configure wether to trace these feature
 # Warning : Too many contents may freeze Grasp
 TRACE_QUEUE = True
